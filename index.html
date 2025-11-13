@@ -17,6 +17,67 @@
             color: #333;
         }
 
+        /* Privacy Notice Banner */
+        .privacy-notice {
+            background: #1A1A1A;
+            color: white;
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 2000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .privacy-notice-content {
+            max-width: 1200px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .privacy-notice-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .privacy-notice-text strong {
+            color: #D4A574;
+        }
+
+        .privacy-notice-text a {
+            color: #D4A574;
+            text-decoration: underline;
+        }
+
+        .privacy-notice-close {
+            background: #D4A574;
+            color: #1A1A1A;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .privacy-notice-close:hover {
+            background: #E8B887;
+            transform: translateY(-1px);
+        }
+
+        .privacy-notice.hidden {
+            display: none;
+        }
+
         header {
             background: linear-gradient(135deg, #6B4423 0%, #3E2723 100%);
             color: white;
@@ -26,6 +87,11 @@
             top: 0;
             z-index: 1000;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: top 0.3s;
+        }
+
+        header.with-notice {
+            top: 60px;
         }
 
         nav {
@@ -70,6 +136,11 @@
             justify-content: center;
             text-align: center;
             color: white;
+            margin-top: 120px;
+            transition: margin-top 0.3s;
+        }
+
+        .hero.without-notice {
             margin-top: 60px;
         }
 
@@ -199,6 +270,21 @@
         }
 
         @media (max-width: 768px) {
+            .privacy-notice {
+                font-size: 0.85rem;
+                padding: 0.8rem 1rem;
+            }
+
+            .privacy-notice-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .privacy-notice-text {
+                min-width: auto;
+                text-align: center;
+            }
+
             .hero-content h1 {
                 font-size: 2.5rem;
             }
@@ -218,7 +304,18 @@
     </style>
 </head>
 <body>
-    <header>
+    <!-- Privacy Notice Banner -->
+    <div id="privacyNotice" class="privacy-notice">
+        <div class="privacy-notice-content">
+            <div class="privacy-notice-text">
+                <strong>🔒 Privacy Notice:</strong> Conversations with our AI assistant are recorded to improve our service. 
+                By using the chat, you agree to our <a href="#privacy">Privacy Policy</a>.
+            </div>
+            <button class="privacy-notice-close" onclick="dismissPrivacyNotice()">Got it</button>
+        </div>
+    </div>
+
+    <header id="mainHeader" class="with-notice">
         <nav>
             <div class="logo">☕ BeanHaven</div>
             <ul class="nav-links">
@@ -298,6 +395,42 @@
     <footer>
         <p>&copy; 2025 BeanHaven Coffee Roasters. All rights reserved.</p>
     </footer>
+
+    <!-- Privacy Notice Script -->
+    <script>
+        function dismissPrivacyNotice() {
+            const notice = document.getElementById('privacyNotice');
+            const header = document.getElementById('mainHeader');
+            const hero = document.querySelector('.hero');
+            
+            notice.classList.add('hidden');
+            header.classList.remove('with-notice');
+            hero.classList.add('without-notice');
+            
+            // Remember dismissal for 30 days
+            localStorage.setItem('privacyNoticeDismissed', 'true');
+            localStorage.setItem('privacyNoticeDismissedDate', new Date().toISOString());
+        }
+
+        // Check if notice was previously dismissed (within 30 days)
+        window.addEventListener('DOMContentLoaded', function() {
+            const dismissed = localStorage.getItem('privacyNoticeDismissed');
+            const dismissedDate = localStorage.getItem('privacyNoticeDismissedDate');
+            
+            if (dismissed === 'true' && dismissedDate) {
+                const daysSinceDismissal = (new Date() - new Date(dismissedDate)) / (1000 * 60 * 60 * 24);
+                
+                if (daysSinceDismissal < 30) {
+                    // Already dismissed within 30 days, hide notice
+                    dismissPrivacyNotice();
+                } else {
+                    // More than 30 days, clear storage and show notice again
+                    localStorage.removeItem('privacyNoticeDismissed');
+                    localStorage.removeItem('privacyNoticeDismissedDate');
+                }
+            }
+        });
+    </script>
 
     <!-- NeuroLaunch Chatbot Widget -->
     <script 
