@@ -4,6 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BeanHaven - Artisan Coffee Roasters</title>
+    
+    <!-- Favicon (prevents 404 error) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☕</text></svg>">
+    
+    <!-- Suppress console logs for public testing -->
+    <script>
+      // Silence console output for cleaner testing experience
+      (function() {
+        const noop = function() {};
+        console.log = noop;
+        console.warn = noop;
+        console.info = noop;
+        
+        // Keep console.error but filter out known harmless errors
+        const originalError = console.error;
+        console.error = function(...args) {
+          const message = args.join(' ');
+          // Filter out Firebase App Check "cancelled" errors (harmless on external sites)
+          if (message.includes('cancelled') || message.includes('proactive-refresh')) {
+            return;
+          }
+          originalError.apply(console, args);
+        };
+      })();
+    </script>
+    
     <style>
         * {
             margin: 0;
@@ -432,12 +458,6 @@
         });
     </script>
 
-<script>
-  console.log = function() {};
-  console.warn = function() {};
-  console.error = function() {};
-  console.info = function() {};
-</script>
     <!-- NeuroLaunch Chatbot Widget -->
     <script 
       src="https://neurolaunch.co.uk/widget/n1-widget-embed.js"
