@@ -3,25 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BeanHaven - Artisan Coffee Roasters</title>
+    <title>Glow & Co - Hair & Beauty Studio</title>
     
-    <!-- Favicon (prevents 404 error) -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☕</text></svg>">
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <!-- Suppress console logs for public testing -->
     <script>
-      // Silence console output for cleaner testing experience
       (function() {
         const noop = function() {};
         console.log = noop;
         console.warn = noop;
         console.info = noop;
         
-        // Keep console.error but filter out known harmless errors
         const originalError = console.error;
         console.error = function(...args) {
           const message = args.join(' ');
-          // Filter out Firebase App Check "cancelled" errors (harmless on external sites)
           if (message.includes('cancelled') || message.includes('proactive-refresh')) {
             return;
           }
@@ -38,14 +40,19 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Montserrat', sans-serif;
             line-height: 1.6;
             color: #333;
+            background: #FFFBF8;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', serif;
         }
 
         /* Privacy Notice Banner */
         .privacy-notice {
-            background: #1A1A1A;
+            background: #2D2D2D;
             color: white;
             padding: 1rem 2rem;
             position: fixed;
@@ -75,17 +82,17 @@
         }
 
         .privacy-notice-text strong {
-            color: #D4A574;
+            color: #D4A5A5;
         }
 
         .privacy-notice-text a {
-            color: #D4A574;
+            color: #D4A5A5;
             text-decoration: underline;
         }
 
         .privacy-notice-close {
-            background: #D4A574;
-            color: #1A1A1A;
+            background: #D4A5A5;
+            color: #2D2D2D;
             border: none;
             padding: 0.5rem 1.5rem;
             border-radius: 20px;
@@ -96,7 +103,7 @@
         }
 
         .privacy-notice-close:hover {
-            background: #E8B887;
+            background: #E8BFBF;
             transform: translateY(-1px);
         }
 
@@ -105,7 +112,7 @@
         }
 
         header {
-            background: linear-gradient(135deg, #6B4423 0%, #3E2723 100%);
+            background: linear-gradient(135deg, #2D2D2D 0%, #1a1a1a 100%);
             color: white;
             padding: 1rem 0;
             position: fixed;
@@ -130,9 +137,11 @@
         }
 
         .logo {
+            font-family: 'Cormorant Garamond', serif;
             font-size: 1.8rem;
-            font-weight: bold;
-            letter-spacing: 1px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            color: #D4A5A5;
         }
 
         .nav-links {
@@ -144,16 +153,19 @@
         .nav-links a {
             color: white;
             text-decoration: none;
-            transition: opacity 0.3s;
+            transition: color 0.3s;
+            font-weight: 300;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
         }
 
         .nav-links a:hover {
-            opacity: 0.8;
+            color: #D4A5A5;
         }
 
         .hero {
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
-                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%238B6F47" width="1200" height="600"/><circle fill="%23A0826D" cx="300" cy="150" r="100"/><circle fill="%23A0826D" cx="900" cy="400" r="120"/><circle fill="%23654321" cx="600" cy="300" r="80"/></svg>');
+            background: linear-gradient(rgba(45,45,45,0.5), rgba(45,45,45,0.5)), 
+                        linear-gradient(135deg, #D4A5A5 0%, #E8D4D4 50%, #F5E6E0 100%);
             background-size: cover;
             background-position: center;
             height: 100vh;
@@ -164,40 +176,66 @@
             color: white;
             margin-top: 120px;
             transition: margin-top 0.3s;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23D4A5A5" width="1200" height="600"/><circle fill="%23E8D4D4" cx="200" cy="100" r="150" opacity="0.5"/><circle fill="%23F5E6E0" cx="1000" cy="500" r="200" opacity="0.5"/><circle fill="%23C49393" cx="600" cy="300" r="100" opacity="0.3"/></svg>');
+            background-size: cover;
+            opacity: 0.9;
         }
 
         .hero.without-notice {
             margin-top: 60px;
         }
 
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
         .hero-content h1 {
             font-size: 4rem;
             margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-weight: 400;
+            letter-spacing: 3px;
         }
 
         .hero-content p {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             margin-bottom: 2rem;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            font-weight: 300;
+            letter-spacing: 2px;
         }
 
         .cta-button {
-            background: #D4A574;
-            color: #3E2723;
+            background: #D4A5A5;
+            color: white;
             padding: 1rem 2.5rem;
             text-decoration: none;
-            border-radius: 30px;
-            font-weight: bold;
-            font-size: 1.1rem;
+            border-radius: 0;
+            font-weight: 500;
+            font-size: 0.9rem;
             transition: all 0.3s;
             display: inline-block;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: 2px solid #D4A5A5;
         }
 
         .cta-button:hover {
-            background: #E8B887;
+            background: transparent;
+            color: white;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         section {
@@ -208,68 +246,204 @@
 
         h2 {
             font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            color: #2D2D2D;
+            font-weight: 400;
+            letter-spacing: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #888;
             margin-bottom: 3rem;
-            text-align: center;
-            color: #3E2723;
+            font-weight: 300;
+            letter-spacing: 1px;
         }
 
-        .features {
+        .services {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
         }
 
-        .feature {
+        .service {
             text-align: center;
-            padding: 2rem;
-            border-radius: 10px;
-            background: #F5F5F5;
-            transition: transform 0.3s;
+            padding: 2.5rem 2rem;
+            background: white;
+            transition: all 0.3s;
+            border: 1px solid #f0e6e6;
         }
 
-        .feature:hover {
+        .service:hover {
             transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 40px rgba(212,165,165,0.2);
         }
 
-        .feature-icon {
-            font-size: 3rem;
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .service h3 {
+            color: #2D2D2D;
+            margin-bottom: 1rem;
+            font-weight: 500;
+            font-size: 1.4rem;
+        }
+
+        .service p {
+            color: #666;
+            font-size: 0.95rem;
             margin-bottom: 1rem;
         }
 
-        .feature h3 {
-            color: #6B4423;
-            margin-bottom: 1rem;
+        .service .price {
+            color: #D4A5A5;
+            font-weight: 600;
+            font-size: 1.1rem;
         }
 
         .about {
-            background: #FFF8F0;
+            background: white;
         }
 
         .about-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 3rem;
+            gap: 4rem;
             align-items: center;
         }
 
         .about-image {
-            background: linear-gradient(135deg, #8B6F47 0%, #6B4423 100%);
-            height: 400px;
-            border-radius: 10px;
+            background: linear-gradient(135deg, #D4A5A5 0%, #E8D4D4 100%);
+            height: 450px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 5rem;
+            position: relative;
+        }
+
+        .about-image::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: -20px;
+            bottom: -20px;
+            border: 2px solid #D4A5A5;
+            z-index: -1;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .team {
+            background: #FAF5F3;
+            padding: 5rem 2rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-member {
+            text-align: center;
+            background: white;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .team-member:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .team-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #D4A5A5 0%, #E8D4D4 100%);
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+
+        .team-member h3 {
+            color: #2D2D2D;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .team-member .role {
+            color: #D4A5A5;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .pricing {
+            background: white;
+        }
+
+        .price-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .price-category {
+            margin-bottom: 3rem;
+        }
+
+        .price-category h3 {
+            font-size: 1.5rem;
+            color: #D4A5A5;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #f0e6e6;
+        }
+
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px dotted #eee;
+        }
+
+        .price-item:last-child {
+            border-bottom: none;
+        }
+
+        .price-item .service-name {
+            font-weight: 400;
+            color: #333;
+        }
+
+        .price-item .service-price {
+            font-weight: 600;
+            color: #2D2D2D;
         }
 
         .contact {
-            background: #3E2723;
+            background: #2D2D2D;
             color: white;
         }
 
         .contact h2 {
             color: white;
+        }
+
+        .contact .section-subtitle {
+            color: #aaa;
         }
 
         .contact-info {
@@ -280,19 +454,61 @@
         }
 
         .contact-item {
-            padding: 1.5rem;
+            padding: 2rem;
         }
 
         .contact-item h3 {
-            color: #D4A574;
+            color: #D4A5A5;
             margin-bottom: 1rem;
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
+
+        .contact-item p {
+            color: #ccc;
+            line-height: 1.8;
+        }
+
+        .book-now-banner {
+            background: linear-gradient(135deg, #D4A5A5 0%, #C49393 100%);
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .book-now-banner h2 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .book-now-banner p {
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .book-now-banner .cta-button {
+            background: white;
+            color: #D4A5A5;
+            border-color: white;
+        }
+
+        .book-now-banner .cta-button:hover {
+            background: transparent;
+            color: white;
         }
 
         footer {
             background: #1A1A1A;
-            color: white;
+            color: #888;
             text-align: center;
             padding: 2rem;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: #D4A5A5;
+            text-decoration: none;
         }
 
         @media (max-width: 768px) {
@@ -316,15 +532,24 @@
             }
 
             .hero-content p {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
             }
 
             .about-content {
                 grid-template-columns: 1fr;
             }
 
+            .about-image::after {
+                display: none;
+            }
+
             .nav-links {
                 gap: 1rem;
+                font-size: 0.8rem;
+            }
+
+            .logo {
+                font-size: 1.4rem;
             }
         }
     </style>
@@ -343,10 +568,11 @@
 
     <header id="mainHeader" class="with-notice">
         <nav>
-            <div class="logo">☕ BeanHaven</div>
+            <div class="logo">GLOW & CO</div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
-                <li><a href="#features">Our Coffee</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#pricing">Pricing</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -355,71 +581,188 @@
 
     <section id="home" class="hero">
         <div class="hero-content">
-            <h1>Welcome to BeanHaven</h1>
-            <p>Where Every Cup Tells a Story</p>
-            <a href="#features" class="cta-button">Explore Our Beans</a>
+            <h1>Glow & Co</h1>
+            <p>Hair & Beauty Studio</p>
+            <a href="#services" class="cta-button">View Our Services</a>
         </div>
     </section>
 
-    <section id="features">
-        <h2>Why Choose BeanHaven?</h2>
-        <div class="features">
-            <div class="feature">
-                <div class="feature-icon">🌍</div>
-                <h3>Ethically Sourced</h3>
-                <p>We partner directly with farmers across Ethiopia, Colombia, and Costa Rica, ensuring fair wages and sustainable farming practices.</p>
+    <section id="services">
+        <h2>Our Services</h2>
+        <p class="section-subtitle">Luxury treatments tailored to you</p>
+        <div class="services">
+            <div class="service">
+                <div class="service-icon">✂️</div>
+                <h3>Hair Styling</h3>
+                <p>From precision cuts to stunning colour transformations, our expert stylists create looks you'll love.</p>
+                <span class="price">From £35</span>
             </div>
-            <div class="feature">
-                <div class="feature-icon">🔥</div>
-                <h3>Small Batch Roasting</h3>
-                <p>Every batch is carefully roasted in our Manchester roastery to bring out the unique flavors of each origin.</p>
+            <div class="service">
+                <div class="service-icon">💅</div>
+                <h3>Nails</h3>
+                <p>Gel, acrylics, and luxury manicures. Treat your hands to the care they deserve.</p>
+                <span class="price">From £25</span>
             </div>
-            <div class="feature">
-                <div class="feature-icon">📦</div>
-                <h3>Fresh Delivery</h3>
-                <p>Your coffee is roasted to order and delivered within 48 hours, guaranteeing maximum freshness and flavor.</p>
+            <div class="service">
+                <div class="service-icon">✨</div>
+                <h3>Beauty & Facials</h3>
+                <p>Rejuvenating facials, lash lifts, brow lamination and more to enhance your natural beauty.</p>
+                <span class="price">From £30</span>
+            </div>
+            <div class="service">
+                <div class="service-icon">💆‍♀️</div>
+                <h3>Massage & Wellness</h3>
+                <p>Unwind with our relaxing massage treatments. Perfect for relieving stress and tension.</p>
+                <span class="price">From £45</span>
             </div>
         </div>
+    </section>
+
+    <section id="pricing" class="pricing">
+        <h2>Price List</h2>
+        <p class="section-subtitle">Transparent pricing, no hidden costs</p>
+        <div class="price-list">
+            <div class="price-category">
+                <h3>Hair</h3>
+                <div class="price-item">
+                    <span class="service-name">Cut & Blow Dry</span>
+                    <span class="service-price">£45</span>
+                </div>
+                <div class="price-item">
+                    <span class="service-name">Blow Dry & Style</span>
+                    <span class="service-price">£30</span>
+                </div>
+                <div class="price-item">
+                    <span class="service-name">Full Colour</span>
+                    <span class="service-price">£75</span>
+                </div>
+                <div class="price-item">
+                    <span class="service-name">Highlights (Half Head)</span>
+                    <span class="service-price">£85</span>
+                </div>
+                <div class="price-item">
+                    <span class="service-name">Highlights (Full Head)</span>
+                    <span class="service-price">£120</span>
+                </div>
+                <div class="price-item">
+                    <span class="service-name">Balayage</span>
+                    <span class="service-price">£140</span>
+                </div>
+            </div>
+            <div class="price-category">
+                <h3>Nails</h3>
+                <div class="price-item">
+                    <span class="service-name">Gel Manicure</span>
+                    <span class="service-price">£28</span>
+                </div>
+                <div class="price-item">
+                    <span class="service-name">Gel Pedicure</span>
+                    <span class="service-price">£35</span>
+                </div>
+                <div class="price-item">
+                    <span class="service-name">Acrylic Full Set</span>
+                    <span class="service-price">£40</span>
+                </div>
+                <div class="price-item">
+                    <span class="service-name">Acrylic Infills</span>
+                    <span class="service-price">£30</span>
+                </div>
+            </div>
+            <div class="price-category">
+                <h3>Beauty</h3>
+                <div class="price-item">
+                    <span class="service-name">Lash Lift & Tint</span>
+                    <span class="service-price">£45</span>
+                </div>
+                <div class="price-item">
+                    <span class="service-name">Brow Lamination</span>
+                    <span class="service-price">£35</span>
+                </div>
+                <div class="price-item">
+                    <span class="service-name">Express Facial</span>
+                    <span class="service-price">£40</span>
+                </div>
+                <div class="price-item">
+                    <span class="service-name">Luxury Facial</span>
+                    <span class="service-price">£65</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="book-now-banner">
+        <h2>Ready to Glow?</h2>
+        <p>Book your appointment today - or chat with us below for availability!</p>
+        <a href="#contact" class="cta-button">Get In Touch</a>
     </section>
 
     <section id="about" class="about">
         <h2>Our Story</h2>
+        <p class="section-subtitle">Where passion meets expertise</p>
         <div class="about-content">
-            <div class="about-image">☕</div>
-            <div>
-                <p style="margin-bottom: 1rem;">
-                    Founded in 2018 by coffee enthusiasts Sarah Chen and Marcus Bradford, BeanHaven started as a small weekend market stall in Manchester. What began as a passion project quickly grew into a thriving business serving thousands of coffee lovers across the UK.
-                </p>
-                <p style="margin-bottom: 1rem;">
-                    Today, we operate our own roastery in the Northern Quarter, where our skilled team crafts exceptional coffee while maintaining the personal touch that made us special from day one.
+            <div class="about-image">💇‍♀️</div>
+            <div class="about-text">
+                <p>
+                    Glow & Co was founded in 2019 by Emma Richards, a stylist with over 15 years of experience in some of London's top salons. After returning to her hometown of Oxford, Emma dreamed of creating a space where luxury meets warmth.
                 </p>
                 <p>
-                    Our mission is simple: to bring joy to your morning routine with coffee that's not just excellent, but ethically sourced and sustainably produced. Every bag supports farming communities and environmental initiatives.
+                    Today, our team of skilled stylists and beauty therapists share Emma's passion for making every client feel their absolute best. We believe great hair and beauty isn't just about looking good - it's about the confidence you carry with you.
                 </p>
+                <p>
+                    Whether you're here for a quick trim or a complete transformation, you'll leave feeling pampered, refreshed, and ready to take on the world.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="team">
+        <h2>Meet The Team</h2>
+        <p class="section-subtitle">Our talented stylists and therapists</p>
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="team-avatar">👩</div>
+                <h3>Emma Richards</h3>
+                <span class="role">Founder & Senior Stylist</span>
+            </div>
+            <div class="team-member">
+                <div class="team-avatar">👩‍🦱</div>
+                <h3>Sophie Chen</h3>
+                <span class="role">Colour Specialist</span>
+            </div>
+            <div class="team-member">
+                <div class="team-avatar">👱‍♀️</div>
+                <h3>Jade Thompson</h3>
+                <span class="role">Beauty Therapist</span>
+            </div>
+            <div class="team-member">
+                <div class="team-avatar">👩‍🦰</div>
+                <h3>Priya Patel</h3>
+                <span class="role">Nail Technician</span>
             </div>
         </div>
     </section>
 
     <section id="contact" class="contact">
-        <h2>Get In Touch</h2>
+        <h2>Visit Us</h2>
+        <p class="section-subtitle">We'd love to see you</p>
         <div class="contact-info">
             <div class="contact-item">
-                <h3>Visit Us</h3>
-                <p>42 Stevenson Square<br>Northern Quarter<br>Manchester M1 1FB</p>
+                <h3>Location</h3>
+                <p>28 High Street<br>Summertown<br>Oxford OX2 7LD</p>
             </div>
             <div class="contact-item">
                 <h3>Opening Hours</h3>
-                <p>Monday - Friday: 7am - 6pm<br>Saturday: 8am - 6pm<br>Sunday: 9am - 4pm</p>
+                <p>Tuesday - Friday: 9am - 7pm<br>Saturday: 9am - 5pm<br>Sunday - Monday: Closed</p>
             </div>
             <div class="contact-item">
-                <h3>Contact</h3>
-                <p>Email: hello@beanhaven.co.uk<br>Phone: 0161 234 5678<br>Orders: shop@beanhaven.co.uk</p>
+                <h3>Get In Touch</h3>
+                <p>Phone: 01865 123 456<br>Email: hello@glowandco.co.uk<br>Instagram: @glowandco.oxford</p>
             </div>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2025 BeanHaven Coffee Roasters. All rights reserved.</p>
+        <p>&copy; 2025 Glow & Co Hair & Beauty Studio. All rights reserved. | <a href="#privacy">Privacy Policy</a></p>
     </footer>
 
     <!-- Privacy Notice Script -->
@@ -433,12 +776,10 @@
             header.classList.remove('with-notice');
             hero.classList.add('without-notice');
             
-            // Remember dismissal for 30 days
             localStorage.setItem('privacyNoticeDismissed', 'true');
             localStorage.setItem('privacyNoticeDismissedDate', new Date().toISOString());
         }
 
-        // Check if notice was previously dismissed (within 30 days)
         window.addEventListener('DOMContentLoaded', function() {
             const dismissed = localStorage.getItem('privacyNoticeDismissed');
             const dismissedDate = localStorage.getItem('privacyNoticeDismissedDate');
@@ -447,10 +788,8 @@
                 const daysSinceDismissal = (new Date() - new Date(dismissedDate)) / (1000 * 60 * 60 * 24);
                 
                 if (daysSinceDismissal < 30) {
-                    // Already dismissed within 30 days, hide notice
                     dismissPrivacyNotice();
                 } else {
-                    // More than 30 days, clear storage and show notice again
                     localStorage.removeItem('privacyNoticeDismissed');
                     localStorage.removeItem('privacyNoticeDismissedDate');
                 }
@@ -459,9 +798,10 @@
     </script>
 
     <!-- NeuroLaunch Chatbot Widget -->
+    <!-- TODO: Update data-business-id to your salon demo business ID -->
     <script 
       src="https://neurolaunch.co.uk/widget/n1-widget-embed.js"
-      data-business-id="bean-haven"
+      data-business-id="glow-and-co-demo"
       async
     ></script>
 </body>
